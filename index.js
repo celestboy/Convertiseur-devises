@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
     let deviseChoisieEntree = "USD";
+    let deviseChoisieSortie = "USD";
+    let valeurEntree = 0
     document.getElementById("valeur_entree").addEventListener("input", () => {
-        let valeurEntree = document.getElementById("valeur_entree").value;
+        valeurEntree = document.getElementById("valeur_entree").value;
         console.log(valeurEntree)
     })
     
@@ -14,9 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     displayResult(data);
 }
 
-    const displayResult = (data) => {
-        // document.querySelector("h3").textContent = data.conversion_rates.USD
-        
+    const displayResult = (data) => {        
 
         document.getElementById("devise1").addEventListener("input", () => {
           deviseChoisieEntree = document.getElementById("devise1").value;
@@ -25,10 +25,13 @@ document.addEventListener("DOMContentLoaded", function () {
           console.log(Object.keys(data.conversion_rates));
         });
         document.getElementById("devise2").addEventListener("input", () => {
-          let deviseChoisieSortie = document.getElementById("devise2").value;
+          deviseChoisieSortie = document.getElementById("devise2").value;
           console.log(deviseChoisieSortie);
-          console.log(typeof(deviseChoisieSortie))
-          console.log(data.conversion_rates.deviseChoisieSortie)
+          console.log(data.conversion_rates[deviseChoisieSortie])
+
+          console.log(
+            (valeurEntree *= data.conversion_rates[deviseChoisieSortie])
+          );
         });
 
         
@@ -49,9 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
           optionCreator.value = Object.keys(data.conversion_rates)[i];
         }
 
-
     }
-
-    fetchExchangeRate()
     
+    fetchExchangeRate()
 })
